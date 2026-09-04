@@ -44,18 +44,26 @@
       <form class="joke-card" id="gateForm" style="margin-top:16px;" novalidate>
         <p class="q">Siapa nama kamu?</p>
         <p class="hint">Cuma nama yang benar yang boleh masuk ke halaman selanjutnya.</p>
-        <input class="gate-input" id="gateInput" type="text" placeholder="Ketik namamu di sini..." autocomplete="off" autocapitalize="words">
+        <input class="gate-input" id="gateInput" type="text" placeholder="Ketik nama lengkapmu di sini..." autocomplete="off" autocapitalize="words">
         <button class="opt yes gate-submit" type="submit">Masuk</button>
       </form>
     </section>
   </main>
 </div>
 
-<!-- Muncul 5 detik saat nama yang dimasukkan salah -->
+<!-- Muncul 3 detik saat nama yang dimasukkan salah total -->
 <div class="gate-error-overlay" id="gateErrorOverlay">
   <div class="gate-error-card">
     <div class="gate-error-text">KAMU SIAPA WOI, MANA PACARKUUU!!! 😤</div>
     <div class="gate-error-sub">Ini bukan buat kamu. Coba masukkan nama yang benar.</div>
+  </div>
+</div>
+
+<!-- Muncul 3 detik saat nama benar tapi belum lengkap -->
+<div class="gate-error-overlay gate-incomplete-overlay" id="gateIncompleteOverlay">
+  <div class="gate-error-card gate-incomplete-card">
+    <div class="gate-error-text">Kurang lengkap, sayang~ 🥺</div>
+    <div class="gate-error-sub">Tulis nama lengkapmu ya, biar aku yakin ini beneran kamu.</div>
   </div>
 </div>
 
@@ -73,7 +81,7 @@
       <h2 class="section-title">Satu Pertanyaan Serius</h2>
       <div class="joke-card" style="margin-top:16px;">
         <p class="q">Apakah kamu sayang aku?</p>
-        <p class="hint">(Ini kuis, bukan opini. Cuma ada satu jawaban yang benar.)</p>
+        <p class="hint">Awas aja pilih ENGGA!!</p>
         <div class="btn-row">
           <button class="opt yes" id="btnYes">Iya, sayang 🥰</button>
           <button class="opt no" id="btnNo">Enggak</button>

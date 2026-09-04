@@ -171,6 +171,12 @@ button.opt:active{ transform: scale(.96); }
 .gate-error-sub{
   margin-top: 10px; font-size: 14px; opacity: .9;
 }
+
+/* Versi lembut: nama benar tapi belum lengkap */
+.gate-incomplete-card{
+  background: linear-gradient(155deg, var(--lilac), var(--pink));
+}
+
 @media (prefers-reduced-motion: reduce){
   .gate-shake{ animation: none; }
   .gate-error-overlay, .gate-error-card{ transition: none; }

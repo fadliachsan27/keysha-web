@@ -181,24 +181,43 @@ function goToPage(hidePage, showPage){
   }, 1650);
 }
 
-// Gerbang verifikasi nama -> hanya "Keysha" yang boleh lanjut
+// Gerbang verifikasi nama -> hanya nama lengkap "Keysha Aulia Salsabila" yang boleh lanjut
 (function initGate(){
+  var FULL_NAME = 'keysha aulia salsabila';
+
   var pageGate = document.getElementById('pageGate');
   var pageTanya = document.getElementById('pageTanya');
   var form = document.getElementById('gateForm');
   var input = document.getElementById('gateInput');
   var errorOverlay = document.getElementById('gateErrorOverlay');
+  var incompleteOverlay = document.getElementById('gateIncompleteOverlay');
   if (!pageGate || !form) return;
 
   pageGate.classList.add('active');
 
   var errorTimer = null;
+  var incompleteTimer = null;
+
+  function showOverlay(overlay, timerRef, setTimerRef){
+    clearTimeout(timerRef);
+    overlay.classList.add('show');
+    var t = setTimeout(function(){
+      overlay.classList.remove('show');
+    }, 3000);
+    setTimerRef(t);
+    form.classList.remove('gate-shake');
+    void form.offsetWidth;
+    form.classList.add('gate-shake');
+    input.focus();
+    input.select();
+  }
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var name = (input.value || '').trim().toLowerCase();
+    // rapikan spasi berlebih supaya "Keysha   Aulia Salsabila" tetap terhitung benar
+    var name = (input.value || '').trim().toLowerCase().replace(/\s+/g, ' ');
 
-    if (name === 'keysha'){
+    if (name === FULL_NAME){
       goToPage(pageGate, pageTanya);
 
       // musik latar mulai diputar pelan (masih dalam gestur klik user, jadi diizinkan browser)
@@ -216,20 +235,13 @@ function goToPage(hidePage, showPage){
       setTimeout(function(){
         if (bouquet) bouquet.classList.remove('show');
       }, 3200);
+    } else if (name.length > 0 && FULL_NAME.indexOf(name) === 0){
+      // nama yang diketik cocok sebagai awalan nama lengkap, tapi belum selesai
+      // (mis. cuma "keysha" atau "keysha aulia") -> tegur lembut, bukan diusir
+      showOverlay(incompleteOverlay, incompleteTimer, function(t){ incompleteTimer = t; });
     } else {
-      // popup "kamu siapa" muncul 3 detik di tengah layar
-      clearTimeout(errorTimer);
-      errorOverlay.classList.add('show');
-      errorTimer = setTimeout(function(){
-        errorOverlay.classList.remove('show');
-      }, 3000);
-
-      form.classList.remove('gate-shake');
-      // trigger ulang animasi shake walau berturut-turut
-      void form.offsetWidth;
-      form.classList.add('gate-shake');
-      input.focus();
-      input.select();
+      // sama sekali bukan namanya -> popup "kamu siapa"
+      showOverlay(errorOverlay, errorTimer, function(t){ errorTimer = t; });
     }
   });
 })();
@@ -245,6 +257,12 @@ function goToPage(hidePage, showPage){
 
   yes.addEventListener('click', function(){
     goToPage(pageTanya, pageMain);
+
+    // surat semangat otomatis terbuka begitu sampai di halaman ini,
+    // masih bisa dibuka ulang lewat amplop di atas kapan saja
+    setTimeout(function(){
+      openEnvelopeSheet();
+    }, 1900);
   });
 
   back.addEventListener('click', function(){
@@ -343,6 +361,7 @@ function goToPage(hidePage, showPage){
 })();
 
 // Amplop yang menggantung -> ditarik turun dulu, baru surat pesan semangat terbuka
+var openEnvelopeSheet = function(){};
 (function initEnvelope(){
   var hang = document.querySelector('.envelope-hang');
   var envelope = document.getElementById('envelopeBtn');
@@ -385,4 +404,6 @@ function goToPage(hidePage, showPage){
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape') closeSheet();
   });
+
+  openEnvelopeSheet = openSheet;
 })();

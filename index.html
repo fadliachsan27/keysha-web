@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💜</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<audio id="bgMusic" src="audio/kiki-theme.mp3" loop preload="auto"></audio>
+
+<button class="music-toggle" id="musicToggle" aria-label="Putar musik" aria-pressed="false">
+  <span class="music-icon" id="musicIcon">🎵</span>
+</button>
+
+<div class="curtain" id="curtain"><span class="curtain-heart">💜</span></div>
+
+<canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+<!-- Buket bunga yang "diberikan" setelah verifikasi nama berhasil -->
+<div class="bouquet-pop" id="bouquetPop">
+  <span class="bouquet-emoji">💐</span>
+  <div class="bouquet-text">Untuk kamu, Keysha 🌸</div>
+</div>
+
+<div class="petals" id="petals"></div>
+
+<!-- Halaman 0: verifikasi nama -->
+<div class="page" id="pageGate">
+  <header class="hero">
+    <span class="eyebrow">Akses Khusus</span>
+    <h1>Siapa yang Buka Ini? 🔐</h1>
+    <p class="sub">Halaman ini cuma buat satu orang. Buktikan itu kamu.</p>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <div class="section-kicker">Verifikasi Dulu</div>
+      <h2 class="section-title">Masukkan Namamu</h2>
+      <form class="joke-card" id="gateForm" style="margin-top:16px;" novalidate>
+        <p class="q">Siapa nama kamu?</p>
+        <p class="hint">Cuma nama yang benar yang boleh masuk ke halaman selanjutnya.</p>
+        <input class="gate-input" id="gateInput" type="text" placeholder="Ketik namamu di sini..." autocomplete="off" autocapitalize="words">
+        <button class="opt yes gate-submit" type="submit">Masuk</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<!-- Muncul 5 detik saat nama yang dimasukkan salah -->
+<div class="gate-error-overlay" id="gateErrorOverlay">
+  <div class="gate-error-card">
+    <div class="gate-error-text">KAMU SIAPA WOI, MANA PACARKUUU!!! 😤</div>
+    <div class="gate-error-sub">Ini bukan buat kamu. Coba masukkan nama yang benar.</div>
+  </div>
+</div>
+
+<!-- Halaman 1: pertanyaan -->
+<div class="page" id="pageTanya">
+  <header class="hero">
+    <span class="eyebrow">Sebuah halaman kecil untukmu</span>
+    <h1>Hai, Keysha Cantik &amp; Ceria 🌸</h1>
+    <p class="sub">Ini bukan situs biasa — ini tempat khusus buat kamu.</p>
+  </header>
+
+  <main class="wrap">
+    <section id="tanya">
+      <div class="section-kicker">Pertanyaan Penting</div>
+      <h2 class="section-title">Satu Pertanyaan Serius</h2>
+      <div class="joke-card" style="margin-top:16px;">
+        <p class="q">Apakah kamu sayang aku?</p>
+        <p class="hint">(Ini kuis, bukan opini. Cuma ada satu jawaban yang benar.)</p>
+        <div class="btn-row">
+          <button class="opt yes" id="btnYes">Iya, sayang 🥰</button>
+          <button class="opt no" id="btnNo">Enggak</button>
+        </div>
+        <div class="reveal" id="revealNo">
+          <div class="big">Ulangi lagi ya... 😤</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Muncul sebentar saat pilih "Enggak" -->
+<div class="grumpy-overlay" id="grumpyOverlay">
+  <img src="images/nailong.png" alt="Ekspresi kesal" class="grumpy-img">
+</div>
+
+<!-- Halaman 2: album, semangat, penutup -->
+<div class="page" id="pageMain">
+  <header class="hero hero-main">
+    <button class="back-btn" id="btnBack" aria-label="Kembali ke halaman pertanyaan">
+      <span aria-hidden="true">←</span> Kembali
+    </button>
+    <div class="envelope-hang">
+      <span class="envelope-string"></span>
+      <button class="envelope-tag" id="envelopeBtn" aria-haspopup="dialog" aria-controls="sheetSemangat" aria-expanded="false">
+        <span class="envelope-tag-icon">💌</span>
+        <span class="envelope-letter" aria-hidden="true"></span>
+      </button>
+    </div>
+    <span class="eyebrow">Yeay, jawaban benar 🎉</span>
+    <h1>Ini Semua Buat Kamu</h1>
+    <p class="sub">Aku juga sayang kamu, lebih dari kamu bisa hitung pakai bahasa Jepang sekalipun.</p>
+  </header>
+
+  <main class="wrap">
+    <section id="galeri">
+      <div class="section-kicker">Album Kecil</div>
+      <h2 class="section-title">Momen-Momen Kamu</h2>
+      <div class="gallery gallery-six" style="margin-top:16px;">
+        <figure class="reveal-item" style="--i:0">
+          <button type="button" class="frame photo-btn" data-full="images/1.jpeg" data-caption="Ekspresi jahilmu"><img src="images/1.jpeg" alt="Ekspresi jahilmu" loading="lazy"></button>
+        </figure>
+        <figure class="reveal-item" style="--i:1">
+          <button type="button" class="frame photo-btn" data-full="images/2.jpeg" data-caption="Senyum manismu"><img src="images/2.jpeg" alt="Senyum manismu" loading="lazy"></button>
+        </figure>
+        <figure class="reveal-item" style="--i:2">
+          <button type="button" class="frame photo-btn" data-full="images/3.jpeg" data-caption="Malu-malu tersenyum"><img src="images/3.jpeg" alt="Malu-malu tersenyum" loading="lazy"></button>
+        </figure>
+        <figure class="reveal-item" style="--i:3">
+          <button type="button" class="frame photo-btn" data-full="images/4.jpeg" data-caption="Kita berdua dan buket bunga"><img src="images/4.jpeg" alt="Kita berdua dan buket bunga" loading="lazy"></button>
+        </figure>
+        <figure class="reveal-item" style="--i:4">
+          <button type="button" class="frame photo-btn" data-full="images/5.jpeg" data-caption="Kamu dan buket bunga ungu"><img src="images/5.jpeg" alt="Kamu dan buket bunga ungu" loading="lazy"></button>
+        </figure>
+        <figure class="reveal-item" style="--i:5">
+          <button type="button" class="frame photo-btn" data-full="images/6.jpeg" data-caption="Ekspresi lucu"><img src="images/6.jpeg" alt="Ekspresi lucu" loading="lazy"></button>
+        </figure>
+      </div>
+    </section>
+
+    <section id="kejutan">
+      <div class="section-kicker">Sekali Lagi</div>
+      <h2 class="section-title">Butuh Kejutan Kecil?</h2>
+      <div class="surprise-card reveal-item" style="margin-top:16px; --i:6">
+        <p class="surprise-quote" id="surpriseQuote">Klik tombolnya, ada pesan manis buat kamu setiap kali~</p>
+        <button class="opt yes surprise-btn" id="btnSurprise" type="button">🎁 Kejutan</button>
+      </div>
+    </section>
+
+    <section class="closing reveal-item" style="--i:7">
+      <div class="script">Terima kasih sudah jadi kamu ✨</div>
+      <p>Tetap ceria, tetap lucu, tetap semangat kejar cita-cita bahasa Jepangnya ya.<br>Ditunggu cerita-cerita baru darimu.</p>
+      <div class="heart">💜🤍💜</div>
+    </section>
+  </main>
+
+  <footer>dibuat dengan sayang, khusus untuk kamu.</footer>
+</div>
+
+<!-- Popup surat semangat, dibuka dari amplop yang menggantung -->
+<div class="sheet-backdrop" id="sheetBackdrop"></div>
+
+<div class="sheet" id="sheetSemangat" role="dialog" aria-label="Pesan semangat belajar bahasa Jepang">
+  <button class="sheet-close" id="sheetClose" aria-label="Tutup surat">✕</button>
+  <div class="sheet-body">
+    <div class="section-kicker">Untuk Perjalanan Belajarmu</div>
+    <h2 class="section-title">Ganbatte, Sensei Kecilku</h2>
+    <div class="study-card" style="margin-top:16px;">
+      <div class="jp">頑張って、いつも応援してるよ</div>
+      <h3>Semangat belajar bahasa Jepangnya!</h3>
+      <p>Aku tahu belajar kanji, partikel, dan segala tata bahasanya itu nggak mudah — tapi kamu selalu jalanin dengan ceria, dan itu salah satu hal yang bikin aku makin sayang kamu.</p>
+      <p>Pelan-pelan aja, satu huruf demi satu huruf. Aku bakal selalu ada buat dengerin kamu latihan ngomong, walau aku cuma ngerti "konnichiwa", "konbawa", "arigato", "ici ni san" doang, apalah gajelas wkwk 😆</p>
+      <div class="words">
+        <div class="word"><div class="kanji">頑張って</div><div class="romaji">ganbatte — semangat!</div></div>
+        <div class="word"><div class="kanji">できるよ</div><div class="romaji">dekiru yo — kamu bisa</div></div>
+        <div class="word"><div class="kanji">大好き</div><div class="romaji">daisuki — sayang banget</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox: foto penuh saat diklik -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Tutup foto">✕</button>
+  <figure class="lightbox-figure">
+    <img src="" alt="" id="lightboxImg">
+    <figcaption id="lightboxCaption"></figcaption>
+  </figure>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
